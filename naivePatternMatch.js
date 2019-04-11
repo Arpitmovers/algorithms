@@ -2,7 +2,7 @@ function naivePatternMatch(pattern, input) {
     // return indices where match is found
 
     var patLen = pattern.length;
-    for (var i = 0; i < input.length - patLen; i++) {
+    for (var i = 0; i <= input.length - patLen; i++) {
 
 
         for (var j = 0; j < patLen; j++) {
@@ -22,3 +22,4 @@ function naivePatternMatch(pattern, input) {
 }
 
 naivePatternMatch('AABA','AABAACAADAABAAABAA')
+naivePatternMatch('AABA','AABA')
