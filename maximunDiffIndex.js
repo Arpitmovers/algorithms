@@ -1,4 +1,4 @@
-// https://practice.geeksforgeeks.org/problems/maximum-index/0/?ref=self
+// https://practice.geeksforgeeks.org/gyproblems/maximum-index/0/?ref=self
 
 function bruteForce(arr){
 
