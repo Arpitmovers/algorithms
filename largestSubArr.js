@@ -1,5 +1,6 @@
 
-
+https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/
+// kadence alog
 function max(a, b) {
     return a >= b ? a : b;
 }
