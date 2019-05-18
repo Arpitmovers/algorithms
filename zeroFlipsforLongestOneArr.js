@@ -29,6 +29,13 @@ function findZeroIndices(arr, m) {
             maxR = windowR;
         }
     }
+    
+    
+    for(var x=maxL;x<maxR;x++){
+        if(arr[x] ==0){
+            console.log(x);
+        }
+    }
 
 }
 findZeroIndices([1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1],2)
