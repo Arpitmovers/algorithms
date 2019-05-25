@@ -41,8 +41,8 @@ function createSegmentTree(elements) {
 // low , high are representation of node  range in segment tree
 function recursiveSum(segmentTree, queryStart, queryEnd, low, high, positon) {
     console.log('low, high, positon ', low, high, positon);
-    
-    
+
+
     // total overlap
     if (low >= queryStart && high <= queryEnd) {
         return segmentTree[positon];
@@ -69,6 +69,38 @@ function findSumInRange(segmentTree, queryStart, queryEnd, origArrLength) {
     return recursiveSum(segmentTree, queryStart, queryEnd, 0, origArrLength - 1, 0);
 }
 
+function recursiveUpdate(value, deltaChange, segmentTree, start, end, currentNode, origArrIdx) {
+    debugger;
+    //  not in range
+    console.log(' start ',start,'end ',end);
+    if (origArrIdx < start || origArrIdx > end) {
+        return;
+    }
+
+    if (start == end) {
+        segmentTree[currentNode] = value;
+    } else {
+        segmentTree[currentNode] += deltaChange;
+    }
+    if (start != end) {
+        var mid = getMidIndex(start, end);
+        recursiveUpdate(value, deltaChange, segmentTree, start, mid, (2 * currentNode) + 1, origArrIdx);
+        recursiveUpdate(value, deltaChange, segmentTree, mid + 1, end, (2 * currentNode) + 2, origArrIdx);
+    }
+
+}
+
+function updateValue(origArr, segmentTree, index, value) {
+    if (index < 0 || index > origArr.length) {
+        return undefined;
+    }
+    var deltaChange = value - origArr[index];
+    origArr[index] = value;
+    debugger;
+    recursiveUpdate(value, deltaChange, segmentTree, 0, origArr.length - 1, 0, index);
+}
+
+
 
 function getNodesCount(n) {
     // (2 raised to h+1) -1
@@ -78,29 +110,45 @@ function getNodesCount(n) {
     return totalnodes;
 
 }
- 
+
 function getMidIndex(start, end) {
     return Math.floor(start + (end - start) / 2);
 }
 
 
-var arr = [1, 3, 5, 7, 9, 11];
-//var segmentTree = createSegmentTree(arr);
-var segmentTree = [36, 9, 27, 4, 5, 16, 11, 1, 3, null, null, 7, 9, null, null];
-//console.log(' segment tree:: ', createSegmentTree(arr));
+
+function main() {
+    var arr = [1, 3, 5, 7, 9, 11];
+    //var segmentTree = createSegmentTree(arr);
+    var segmentTree = [36, 9, 27, 4, 5, 16, 11, 1, 3, null, null, 7, 9, null, null];
+    //console.log(' segment tree:: ', createSegmentTree(arr));
 
 
+    //range queries: find sum
+    var queryStart = 1, queryEnd = 2;  // ans 8
+    /*   var sum = findSumInRange(segmentTree, queryStart, queryEnd, arr.length);
+   
+       if (!sum) {
+           console.log(' INVALID');
+       } else {
+           console.log('sum in range ', queryStart, queryEnd, ' is ', sum);
+       }
+       */
 
-//range queries: find sum
-var queryStart = 1, queryEnd = 2;  // ans 8
+    var index = 1;
+    var value = 4;
+    updateValue(arr, segmentTree, index, value, 0, arr.length - 1);
 
-var sum = findSumInRange(segmentTree, queryStart, queryEnd, arr.length);
 
-if (!sum) {
-    console.log(' INVALID');
-} else {
-    console.log('sum in range ', queryStart, queryEnd, ' is ', sum);
 }
+
+main();
+
+
+
+
+
+
 // space complexxity O(n) as total 2n-1 nodes
 // time complexity for update   O(log n)
 // https://www.youtube.com/watch?v=ZBHKZF5w4YU&t=1015s  -
