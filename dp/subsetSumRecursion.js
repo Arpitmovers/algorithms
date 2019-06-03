@@ -16,3 +16,4 @@ function subsetSum(arr, i, X,useCase) {
 }
 var res = subsetSum([3, 2, 7, 1], 0, 6,'main')
 console.log(' ans is ', res);
+// here 6 can be obtained from <3,2,1>
