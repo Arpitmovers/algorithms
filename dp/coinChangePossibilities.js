@@ -11,16 +11,13 @@ function countWays(coins,sum,totalCoins){
     return 1;
   }
 
-    if(sum > 0 && totalCoins <=0){
-        return 0;
-    }
+  if(sum > 0 && totalCoins <=0){
+    return 0;
+   }
 
 
 // including last  coin  +  not including  last coin
     return countWays(coins, sum - coins[totalCoins],totalCoins) + countWays(coins,sum,totalCoins-1);
-
-
-
 }
 
 function countWaysMemosiation(coinArr,sum){
